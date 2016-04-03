@@ -23,11 +23,15 @@ public class Pattern : MonoBehaviour {
 	private float roundDelay = 1f;
 	private float startTime = 0.0f;
 	private float timeStep = 0.5f;
+	private float wrongCnt = 0f;
+	private float rightCnt = 0f;
+	private float pattRight = 0f;
+	private float pattTotal = 20f;
+	private float tempoRight = 0f;
+	private float tempoTotal = 20f;
 	private int[] recordedPattern = new int[8];
 	private int[] currentPattern;
 	private int lastIndex = 0;
-	private int wrongCnt = 0;
-	private int rightCnt = 0;
 	private int recordedCnt = 0;
 	private int currentCnt = 0;
 
@@ -50,7 +54,18 @@ public class Pattern : MonoBehaviour {
 			//isPlaying is set to true to keep startRecording from being called before evaluations
 			isPlaying = true;
 			evaluatePattern ();
+			Debug.Log (getAnalytics ().y);
 		}
+	}
+
+	//x = Percentage of puzzles gotten correct
+	//y = Progress in Patterns
+	//z = Progress in Tempo
+	public Vector3 getAnalytics(){
+		float avgCorrect = (rightCnt / (rightCnt + wrongCnt));
+		float pattProg = (pattRight / pattTotal);
+		float tempoProg = (tempoRight / tempoTotal);
+		return new Vector3 (avgCorrect, pattProg, tempoProg);
 	}
 
 	void evaluatePattern(){
@@ -96,7 +111,6 @@ public class Pattern : MonoBehaviour {
 		wrongCnt++;
 		//Play "Oops!"
 		Debug.Log("Woops!");
-		updateFileController(false);
 		yield return new WaitForSeconds (roundDelay);
 		StartCoroutine(playBack (currentPattern));
 	}
@@ -105,13 +119,15 @@ public class Pattern : MonoBehaviour {
 		rightCnt++;
 		//Play "Yipee!"
 		Debug.Log("Yipee!");
-		updateFileController(true);
+		if (isTempo) {
+			if (tempoRight < tempoTotal) {
+				tempoRight++;
+			}
+		} else if(pattRight < pattTotal){
+			pattRight++;
+		}
 		yield return new WaitForSeconds (roundDelay);
 		StartCoroutine(playBack (getPatOrTemp ()));
-	}
-
-	void updateFileController(bool correct){
-
 	}
 
 	int calcKeys(int[] pattern){
