@@ -18,7 +18,7 @@ public class Pattern : MonoBehaviour {
         {6, 0, 0, 6, 6, 0, 0, 6}
     };
 
-    //GameObject[] XylophoneKeys = new GameObject[8]; 
+    public PlayOnClick[] XylophoneKeys = new PlayOnClick[8]; 
 
 
 
@@ -54,7 +54,7 @@ public class Pattern : MonoBehaviour {
         {
             if (playMe[currentNote] != 0)
             {
-                //XylophoneKeys[currentNote].playSound();
+                XylophoneKeys[currentNote].playSound();
             }
 
             yield return new WaitForSeconds(2);
