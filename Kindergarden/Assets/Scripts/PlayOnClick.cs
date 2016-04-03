@@ -45,6 +45,8 @@ public class PlayOnClick : MonoBehaviour {
 			} else {
 				patGen.recordSound (key);
 			}
+		} else if(patGen == null){
+			playSound ();
 		}
 	}
 
