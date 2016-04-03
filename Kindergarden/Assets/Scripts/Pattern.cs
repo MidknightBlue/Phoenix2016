@@ -24,12 +24,12 @@ public class Pattern : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+		StartCoroutine(playBack (getTempo ()));
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+		
 	}
 
     public int[] getPattern()
@@ -57,7 +57,7 @@ public class Pattern : MonoBehaviour {
                 XylophoneKeys[currentNote].playSound();
             }
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

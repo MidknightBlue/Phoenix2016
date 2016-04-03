@@ -10,7 +10,7 @@ public class PlayOnClick : MonoBehaviour {
 	private float shakeOff = 0.18f;
 
 	// Initializing the Audio Source
-	void Start () {
+	void Awake () {
 		sound = GetComponent<AudioSource> ();
 		rend = GetComponent<Renderer> ();
 		startingColor = rend.material.color;
@@ -36,6 +36,7 @@ public class PlayOnClick : MonoBehaviour {
 	}
 
 	public void playSound(){
+		Debug.Log (rend);
 		Vector3 temp = gameObject.transform.position;
 		temp.x -= shakeOff;
 		gameObject.transform.position = temp;
