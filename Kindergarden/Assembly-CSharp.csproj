@@ -45,8 +45,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LevelLoader.cs" />
      <Compile Include="Assets\Scripts\Pattern.cs" />
      <Compile Include="Assets\Scripts\PlayOnClick.cs" />
+     <Compile Include="Assets\Scripts\SlowDown.cs" />
+     <Compile Include="Assets\randomAnim.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
