@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Pattern : MonoBehaviour {
     private int[,] pattern = {
@@ -24,6 +25,7 @@ public class Pattern : MonoBehaviour {
 	private float timeStep = 0.5f;
 	private int[] recordedPattern = new int[8];
 	private int[] currentPattern;
+	private int lastIndex = 0;
 	private int wrongCnt = 0;
 	private int rightCnt = 0;
 	private int recordedCnt = 0;
@@ -68,10 +70,6 @@ public class Pattern : MonoBehaviour {
 				while (i < currentPattern.Length - 1 && currentPattern [i] == 0) {
 					i++;
 				}
-				test1 = "i" + i + ":" + currentPattern [i];
-				Debug.Log (test1);
-				test1 = "j" + j + ":" + recordedPattern [j];
-				Debug.Log (test1);
 
 				if (currentPattern [i] != recordedPattern [j]) {
 					StartCoroutine (wrong ());
@@ -127,8 +125,8 @@ public class Pattern : MonoBehaviour {
 	}
 
 	int[] getPatOrTemp(){
-		int diceRoll = Random.Range (0, 2);
-		if (diceRoll > 1) {
+		int diceRoll = Random.Range (0, 3);
+		if (diceRoll >= 2) {
 			return getPattern ();
 		} else {
 			return getTempo ();
@@ -137,25 +135,29 @@ public class Pattern : MonoBehaviour {
 
     public int[] getPattern()
     {
-        int index = Random.Range(0, 5);
+		int index;
 		isTempo = false;
-		currentPattern = new int[] {pattern[index, 0], pattern[index, 1], pattern[index, 2], pattern[index, 3], pattern[index, 4],
-            pattern[index, 5], pattern[index, 6], pattern[index, 7]};
-		currentCnt = calcKeys (currentPattern);
+		do{
+	        index = Random.Range(0, 5);
+			currentPattern = new int[] {pattern[index, 0], pattern[index, 1], pattern[index, 2], pattern[index, 3], pattern[index, 4],
+	            pattern[index, 5], pattern[index, 6], pattern[index, 7]};
+			currentCnt = calcKeys (currentPattern);
+		}while(lastIndex == index);
+		lastIndex = index;
 		return currentPattern;
-		/*
-		currentCnt = 8;
-		return new int[] {1, 2, 3, 4, 5, 6, 7, 8};
-		*/
     }
 
     public int[] getTempo()
     {
-        int index = Random.Range(0, 5);
+		int index;
 		isTempo = true;
-		currentPattern = new int[] {tempo[index, 0], tempo[index, 1], tempo[index, 2], tempo[index, 3], tempo[index, 4],
-            tempo[index, 5], tempo[index, 6], tempo[index, 7]};
-		currentCnt = 0;
+		do{
+	        index = Random.Range(0, 5);
+			currentPattern = new int[] {tempo[index, 0], tempo[index, 1], tempo[index, 2], tempo[index, 3], tempo[index, 4],
+	            tempo[index, 5], tempo[index, 6], tempo[index, 7]};
+			currentCnt = 0;
+		}while(lastIndex == index * 2);
+		lastIndex = index * 2;
 		return currentPattern;
     }
 
@@ -170,7 +172,6 @@ public class Pattern : MonoBehaviour {
 			recordedCnt = 1;
 		}
 		recordedPattern [0] = pressedKey;
-		Debug.Log (currentCnt);
 	}
 
 	public void recordSound(int pressedKey){

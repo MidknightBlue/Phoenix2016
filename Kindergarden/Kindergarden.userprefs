@@ -1,15 +1,13 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="Kindergarden.CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayOnClick.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Pattern.cs">
     <Files>
+      <File FileName="Assets\Scripts\Pattern.cs" Line="143" Column="1" />
       <File FileName="Assets\Scripts\PlayOnClick.cs" Line="39" Column="2" />
-      <File FileName="Assets\Scripts\Pattern.cs" Line="51" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Samir\Documents\Phoenix2016\Kindergarden\Assets\Scripts\PlayOnClick.cs" line="40" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
