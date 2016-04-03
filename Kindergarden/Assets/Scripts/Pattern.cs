@@ -87,6 +87,8 @@ public class Pattern : MonoBehaviour {
 	}
 
 	IEnumerator wrong(){
+		Display.Log (currentPattern);
+		Display.Log (recordedPattern);
 		wrongCnt++;
 		//Play "Oops!"
 		Debug.Log("Woops!");

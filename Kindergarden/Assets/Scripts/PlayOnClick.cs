@@ -38,7 +38,7 @@ public class PlayOnClick : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		if (!patGen.isPlaying) {
+		if (patGen != null && !patGen.isPlaying) {
 			playSound ();
 			if (!patGen.isRecording) {
 				patGen.startRecording (key);
