@@ -48,7 +48,7 @@ public class Pattern : MonoBehaviour {
             tempo[index, 5], tempo[index, 6], tempo[index, 7]};
     }
 
-    IEnumerator playBack(int[] playMe)
+    IEnumerator playBack(int[] playMe) //Needs to be finished!
     {
         for (int currentNote = 0; currentNote < playMe.Length; ++currentNote)
         {
