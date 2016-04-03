@@ -63,8 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Pattern.cs" />
     <Compile Include="Assets\Scripts\PlayOnClick.cs" />
+    <Compile Include="Assets\Scripts\SlowDown.cs" />
+    <Compile Include="Assets\randomAnim.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
