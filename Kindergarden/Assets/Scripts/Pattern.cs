@@ -63,23 +63,31 @@ public class Pattern : MonoBehaviour {
 		} else {
 			int i = 0;
 			int j = 0;
-			while (i < currentPattern.Length || j < recordedPattern.Length) {
+			string test1;
+			while (i < currentPattern.Length-1 || j < recordedPattern.Length-1) {
 				while (i < currentPattern.Length - 1 && currentPattern [i] == 0) {
 					i++;
 				}
-				while (j < recordedPattern.Length - 1 && recordedPattern [j] == 0) {
-					j++;
-				}
+				test1 = "i" + i + ":" + currentPattern [i];
+				Debug.Log (test1);
+				test1 = "j" + j + ":" + recordedPattern [j];
+				Debug.Log (test1);
+
 				if (currentPattern [i] != recordedPattern [j]) {
 					StartCoroutine (wrong ());
+					i = currentPattern.Length;
+					j = recordedPattern.Length;
 					return;
 				} else {
-					if (i < currentPattern.Length - 1) {
+					if (i < currentPattern.Length - 1 || j == recordedPattern.Length-1) {
 						i++;
 					}
-					if (j < recordedPattern.Length - 1) {
+					if (j < recordedPattern.Length - 1 || i == currentPattern.Length-1) {
 						j++;
 					}
+				}
+				while (j < recordedPattern.Length - 1 && recordedPattern [j] == 0) {
+					j++;
 				}
 			}
 			StartCoroutine (right ());
@@ -87,8 +95,6 @@ public class Pattern : MonoBehaviour {
 	}
 
 	IEnumerator wrong(){
-		Debug.Log (currentPattern);
-		Debug.Log (recordedPattern);
 		wrongCnt++;
 		//Play "Oops!"
 		Debug.Log("Woops!");
@@ -137,6 +143,10 @@ public class Pattern : MonoBehaviour {
             pattern[index, 5], pattern[index, 6], pattern[index, 7]};
 		currentCnt = calcKeys (currentPattern);
 		return currentPattern;
+		/*
+		currentCnt = 8;
+		return new int[] {1, 2, 3, 4, 5, 6, 7, 8};
+		*/
     }
 
     public int[] getTempo()
@@ -160,6 +170,7 @@ public class Pattern : MonoBehaviour {
 			recordedCnt = 1;
 		}
 		recordedPattern [0] = pressedKey;
+		Debug.Log (currentCnt);
 	}
 
 	public void recordSound(int pressedKey){
