@@ -3,11 +3,16 @@ using System.Collections;
 
 public class PlayOnClick : MonoBehaviour {
 
+	public Pattern patGen;
+	public int key;
+
 	private AudioSource sound;
 	private Renderer rend;
 	private Color startingColor;
 	private float startingX;
-	private float shakeOff = 0.18f;
+	private float shakeOff = 0.12f;
+	private float startTime = 0.0f;
+	private float shakeDuration = 0.48f;
 
 	// Initializing the Audio Source
 	void Awake () {
@@ -20,11 +25,12 @@ public class PlayOnClick : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 temp = gameObject.transform.position;
-		if (startingX > temp.x && startingX - temp.x > 0.005f) {
+		if (startingX > temp.x && startingX - temp.x > 0.005f && Time.time - startTime < shakeDuration) {
 			temp.x += ((startingX - temp.x) * 2) - 0.005f;
-		} else if (startingX < temp.x && temp.x - startingX > 0.005f) {
+		} else if (startingX < temp.x && temp.x - startingX > 0.005f && Time.time - startTime < shakeDuration) {
 			temp.x -= ((temp.x - startingX) * 2) - 0.005f;
 		} else {
+			temp.x = startingX;
 			rend.material.color = startingColor;
 		}
 		gameObject.transform.position = temp;
@@ -32,15 +38,22 @@ public class PlayOnClick : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		playSound ();
+		if (!patGen.isPlaying) {
+			playSound ();
+			if (!patGen.isRecording) {
+				patGen.startRecording (key);
+			} else {
+				patGen.recordSound (key);
+			}
+		}
 	}
 
 	public void playSound(){
-		Debug.Log (rend);
 		Vector3 temp = gameObject.transform.position;
 		temp.x -= shakeOff;
 		gameObject.transform.position = temp;
 		rend.material.color = Color.white;
+		startTime = Time.time;
 		sound.Play ();
 	}
 
