@@ -176,7 +176,12 @@ public class Pattern : MonoBehaviour {
 
 	public void recordSound(int pressedKey){
 		if (isTempo) {
-			int timeSlot = (int)(((Time.time - startTime) / (timeStep * recordedPattern.Length)) * recordedPattern.Length);
+			int timeSlot = Mathf.RoundToInt(((Time.time - startTime - (timeStep/2))/ (timeStep * recordedPattern.Length)) * recordedPattern.Length);
+			if (timeSlot < 0) {
+				timeSlot = 0;
+			} else if (timeSlot > currentPattern.Length-1) {
+				timeSlot = currentPattern.Length - 1;
+			}
 
 			if (recordedPattern [timeSlot] == 0) {
 				recordedPattern [timeSlot] = pressedKey;
